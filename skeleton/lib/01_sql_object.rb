@@ -45,7 +45,13 @@ end
   end
 
   def initialize(params = {})
-    # ...
+    
+    params.each do |attr_name, value|
+      name = attr_name.to_sym
+      raise "unknown attribute '#{attr_name}'" unless self.class.columns.include?(name)
+      self.send("#{name}=", value)  
+    end
+
   end
 
   def attributes
